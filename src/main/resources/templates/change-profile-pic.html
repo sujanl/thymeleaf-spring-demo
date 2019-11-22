@@ -1,0 +1,23 @@
+
+<form method="post" action="#" th:action = "@{/confirm/pic/{id}(id = ${id})}">
+	<img id="output" alt="(no image selected..)"height = "150" width = "120"/><br>
+	Select a file: <input type="file" accept="image/*" onchange="loadFile(event)" ><br>
+	<textarea id="img" style="display: none;" th:name="image"></textarea>
+	<input type="submit" value = "Confirm">
+</form>
+
+<script>
+ 	var loadFile = function(event) {
+    	var reader = new FileReader();
+    	reader.onload = function(){
+	      	var output = document.getElementById('output');
+	      	output.src = reader.result;
+	      	var img = document.getElementById('img');
+	      	img.value = reader.result.split(',')[1];
+	      	console.log(img);	      	
+    	};
+    	
+    reader.readAsDataURL(event.target.files[0]);
+    };
+
+</script>

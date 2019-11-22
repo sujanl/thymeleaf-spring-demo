@@ -1,0 +1,18 @@
+Welcome!
+<br><img  th:src="${user.profilePicture}" alt="(No Profile Picture...)" width="100" height="120"><br>
+<table>
+	<tr>
+		<th>Email</th>
+		<th><p th:text="${user.email}"></p>
+	</tr>
+	<tr>
+		<th>Name</th>
+		<th><p th:text="${user.name}"></p></th>
+	</tr>
+	<tr>
+		<th>Address</th>
+		<th><p th:text="${user.address}"></p></th>
+	</tr>
+</table>
+<a th:href="@{/edit-profile/{id}(id=${user.id})}"> Edit Profile</a><br>
+<a th:href="@{/change-profile-pic/{id}(id=${user.id})}"> Edit Profile Picture</a>
