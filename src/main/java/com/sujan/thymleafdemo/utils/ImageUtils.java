@@ -11,22 +11,26 @@ import org.apache.tomcat.util.codec.binary.Base64;
 
 public class ImageUtils {
 	/**
-	 * decodes encoded base64 image string and save to./image directory and returns the image absolute directory
+	 * decodes encoded base64 image string and save it
 	 * @param encodedImage
 	 * @return String
 	 */
 	public static String saveImage(String encodedImage) {
-		String fileDir = "images";
+		String staticDir = "src/main/resources/static";
+		String imgDir = staticDir+"/images";
 		DateTimeFormatter dtFormat = DateTimeFormatter.ofPattern("ddmmyyyyhhmmss");
 		LocalDateTime rightNow = LocalDateTime.now();
 		String imgName = dtFormat.format(rightNow);
 		//create directory
-		if(!new File(fileDir).exists()) {
-			new File(fileDir).mkdir();
+		if(!new File(staticDir).exists()) {
+			new File(staticDir).mkdir();
 		}
-		File imgDir = new File(fileDir.concat(File.separator).concat(imgName).concat(".png"));
+		if(!new File(imgDir).exists()) {
+			new File(imgDir).mkdir();
+		}
+		File finalImg = new File(imgDir.concat(File.separator).concat(imgName).concat(".png"));
 		try {
-			FileOutputStream outputImg = new FileOutputStream(imgDir);
+			FileOutputStream outputImg = new FileOutputStream(finalImg);
 			byte[] imgByte =  Base64.decodeBase64(encodedImage);
 			try {
 				outputImg.write(imgByte);
@@ -37,6 +41,8 @@ public class ImageUtils {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}	
-		return imgDir.getAbsolutePath();
+		return "http://localhost:8080/images/"+imgName+".png";
 	}
+	
+	
 }

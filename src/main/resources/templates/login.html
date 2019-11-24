@@ -1,5 +1,5 @@
 <H1>Login!</H1>
-
+<p th:text="${message}" />
 
 <form method = "post" action = "#" th:object="${loginRequest}" th:action = "@{/login}",>
 	<label for="email">Email</label>
